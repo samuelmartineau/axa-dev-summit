@@ -12,6 +12,7 @@ app.get('*', function (req, res) {
 })
 
 app.post('/quote', (req, res) => {
+  res.sendStatus(400);
   const result = quoteCalculator(req.body);
   res.send({
     quote: result
