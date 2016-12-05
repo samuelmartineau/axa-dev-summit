@@ -11,13 +11,8 @@ app.get('*', function (req, res) {
   res.sendStatus(400);
 })
 
-// app.post('*', function (req, res) {
-//   console.log('params', req.body)
-// })
-
 app.post('/quote', (req, res) => {
   const result = quoteCalculator(req.body);
-  console.log('quote', result);
   res.send({
     quote: result
   });

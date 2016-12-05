@@ -3,7 +3,6 @@ const moment = require('moment');
 const quote = 1.8;
 
 module.exports = (form) => {
-    console.log(form)
     const {country, departureDate, returnDate, travellerAges, options, cover} = form;
     const traverlersNumber = travellerAges.length;
     const returnDateFormated = moment(returnDate, 'YYYY-MM-DD');
