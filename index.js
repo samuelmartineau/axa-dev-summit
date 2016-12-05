@@ -12,10 +12,10 @@ app.get('*', function (req, res) {
 })
 
 app.post('/quote', (req, res) => {
-  res.sendStatus(400);
+  console.log('quote', req.body)
   const result = quoteCalculator(req.body);
   res.send({
-    quote: result
+    quote: 0
   });
 });
 
