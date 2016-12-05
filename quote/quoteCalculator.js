@@ -3,8 +3,11 @@ const moment = require('moment');
 const quote = 1.8;
 
 module.exports = (form) => {
+    console.log(form)
     const {country, departureDate, returnDate, travellerAges, options, cover} = form;
     const traverlersNumber = travellerAges.length;
-    const daysNumber = moment(departureDate, 'yyyy-mm-dd').diff(moment(returnDate, 'yyyy-mm-dd'), 'days');
+    const returnDateFormated = moment(returnDate, 'YYYY-MM-DD');
+    const departureDateFormated = moment(departureDate, 'YYYY-MM-DD');
+    const daysNumber = returnDateFormated.diff(departureDateFormated, 'days');
     return quote * daysNumber * traverlersNumber;
 }
