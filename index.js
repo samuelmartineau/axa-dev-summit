@@ -15,7 +15,7 @@ app.post('/quote', (req, res) => {
   console.log('quote', req.body)
   const result = quoteCalculator(req.body);
   res.send({
-    quote: 0
+    quote: result
   });
 });
 
