@@ -1,6 +1,7 @@
 const moment = require('moment');
 const countries = require('../country');
 
+const minimalWeek = 7;
 const quotes = { BASIC: 1.8, EXTRA: 2.4, PREMIUM: 4.2 };
 const optionsRef = {
   SKIING: 24,
@@ -15,15 +16,13 @@ module.exports = (form) => {
     const returnDateFormated = moment(returnDate, 'YYYY-MM-DD');
     const departureDateFormated = moment(departureDate, 'YYYY-MM-DD');
     let daysNumber = returnDateFormated.diff(departureDateFormated, 'days');
-    let optionsAmount = 0;
+    daysNumber = daysNumber < minimalWeek ? minimalWeek : daysNumber;
     const countryFee = countries[country.toUpperCase()];
 
-    if (options && options.length) {
-      optionsAmount = options.reduce((acc, option) => {
-        acc += optionsRef[option.toUpperCase()]
-        return acc;
-      }, 0);
-    }
+    const optionsAmount = optionsAmount ? options.reduce((acc, option) => {
+      acc += optionsRef[option.toUpperCase()]
+      return acc;
+    }, 0) : 0;
 
     const ageFees = travellerAges.reduce((acc, age) => {
       if (age < 18) {
@@ -37,11 +36,6 @@ module.exports = (form) => {
       }
       return acc
     }, 0);
-
-    if (daysNumber < 7)
-    {
-        daysNumber = 7;
-    }
 
     return quotes[cover.toUpperCase()] * countryFee * daysNumber * ageFees + optionsAmount;
 }
