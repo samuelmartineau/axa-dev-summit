@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const quoteCalculator = require('body-parser')
+const quoteCalculator = require('./quote/quoteCalculator')
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
@@ -17,7 +17,7 @@ app.post('*', function (req, res) {
 
 app.post('/quote', (req, res) => {
   const result = quoteCalculator(req.body);
-  console.log(result);
+  console.log('quote', result);
   res.sendStatus(400)
 })
 
