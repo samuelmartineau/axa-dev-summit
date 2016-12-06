@@ -1,6 +1,6 @@
 const moment = require('moment');
 const countries = require('../country');
-// const romanPriceService = require('../romanPrice/');
+// const romanPriceService = require('../romanPrice/romanPriceService');
 
 const minimalWeek = 7;
 const payDayOfTheWeek = 4;
@@ -19,21 +19,6 @@ const optionsRef = {
     YOGA: -3
 }
 
-function getNumberOfDays(daysNumber) {
-    numberOfDays = daysNumber;
-    if (numberOfDays > 0 && numberOfDays <= minimalWeek) {
-        numberOfDays = 7;
-    } else {
-        numberOfWeeks = Math.floor(daysNumber / 7);
-        if (numberOfDays % 7 < payDayOfTheWeek) {
-            numberOfDays = numberOfWeeks * 7;
-        } else {
-            numberOfDays = (numberOfWeeks + 1) * 7;
-        }
-    }
-    return numberOfDays;
-}
-
 module.exports = (form) => {
     const {
         country,
@@ -46,7 +31,7 @@ module.exports = (form) => {
     const returnDateFormated = moment(returnDate, 'YYYY-MM-DD');
     const departureDateFormated = moment(departureDate, 'YYYY-MM-DD');
     let daysNumber = returnDateFormated.diff(departureDateFormated, 'days');
-    daysNumber = getNumberOfDays(daysNumber);
+    daysNumber = 1 || romanPriceService(daysNumber);
     const countryFee = countries[country.toUpperCase()];
     const ageSum = travellerAges.reduce((acc, age) => {
         if (isNaN(age)) {
@@ -62,10 +47,16 @@ module.exports = (form) => {
         } else {
             acc += 1.5
         }
-        return acc
-        return acc, 0
-    })
+        return acc;
+    }, 0)
 
-    quoteWithoutDiscount = Math.round((quotes[cover.toUpperCase()] * countryFee * ageSum * daysNumber) * 100) / 100;
+    const optionsAmount = options ? options.reduce((acc, option) => {
+        if (optionsRef[option.toUpperCase()]) {
+            acc += optionsRef[option.toUpperCase()]
+        }
+        return acc;
+    }, 0) : 0;
+
+    quoteWithoutDiscount = Math.round((quotes[cover.toUpperCase()] * countryFee * ageSum * daysNumber + optionsAmount) * 100) / 100;
     return quoteWithoutDiscount;
 }
