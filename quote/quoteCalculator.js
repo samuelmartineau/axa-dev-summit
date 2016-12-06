@@ -15,7 +15,6 @@ const optionsRef = {
     SCUBA: 36,
     SPORTS: 25,
     YOGA: -3,
-    SPORTS: 5,
 }
 
 function getNumberOfDays( daysNumber ){
@@ -48,6 +47,10 @@ module.exports = (form) => {
     daysNumber = getNumberOfDays( daysNumber );
     const countryFee = countries[country.toUpperCase()];
 
+    if (travellerAges.length > 3) { 
+      throw 'fix'
+    }
+
     if (!countryFee) {
       throw 'issue';
     }
@@ -55,6 +58,8 @@ module.exports = (form) => {
     const optionsAmount = options ? options.reduce((acc, option) => {
         if (optionsRef[option.toUpperCase()]) {
           acc += optionsRef[option.toUpperCase()]
+        } else {
+          throw 'option issue';
         }
         return acc;
     }, 0) : 0;
@@ -63,7 +68,9 @@ module.exports = (form) => {
         if (isNaN(age)) {
           throw 'issue';
         }
-        if (age < 18) {
+        if (age < 1) {
+
+        } else if (age < 18) {
             acc += 1.1
         } else if (age < 25) {
             acc += 0.9
