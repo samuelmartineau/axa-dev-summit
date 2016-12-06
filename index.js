@@ -2,28 +2,32 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const quoteCalculator = require('./quote/quoteCalculator')
+const fs = require('fs')
 
-app.use(bodyParser.urlencoded({extended: true}))
+const logFile = 'log-me-i-am-famous.log'
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
 app.use(bodyParser.json())
 
-app.get('*', function (req, res) {
-  console.log('params', req.body)
-  res.sendStatus(400);
+app.get('/logs', function(req, res) {
+    res.setHeader('content-type', 'text/html');
+    fs.createReadStream('./log-me-i-am-famous.log').pipe(res);
 })
 
 app.post('/quote', (req, res) => {
-  console.log('quote', req.body)
-  const result = quoteCalculator(req.body);
-  res.send({
-    quote: result
-  });
+    const result = quoteCalculator(req.body);
+    fs.appendFile(logFile, `${JSON.stringify(req.body, null, 5)} result: ${result} <br>\n`)
+    res.send({
+        quote: result
+    });
 });
 
 app.post('/feedback', (req, res) => {
-  console.log('feedback', req.body)
-  res.sendStatus(400)
+  fs.appendFile(logFile, `${req.body}<br>\n`)
 })
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+app.listen(3000, function() {
+    console.log('Example app listening on port 3000!')
 })

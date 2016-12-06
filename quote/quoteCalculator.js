@@ -19,7 +19,7 @@ module.exports = (form) => {
     daysNumber = daysNumber < minimalWeek ? minimalWeek : daysNumber;
     const countryFee = countries[country.toUpperCase()];
 
-    const optionsAmount = optionsAmount ? options.reduce((acc, option) => {
+    const optionsAmount = options ? options.reduce((acc, option) => {
       acc += optionsRef[option.toUpperCase()]
       return acc;
     }, 0) : 0;
