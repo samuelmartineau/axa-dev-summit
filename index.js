@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 
 app.get('/logs', function(req, res) {
     res.setHeader('content-type', 'text/html');
-    ts.createReadStream(path.resolve(__dirname, logFile)).pipe(res);
+    ts.createReadStream(path.join(__dirname, logFile)).pipe(res);
 })
 
 app.post('/quote', (req, res) => {
@@ -33,8 +33,8 @@ app.post('/quote', (req, res) => {
 });
 
 app.post('/feedback', (req, res) => {
-  const htmlFeedback = `<div style="color: "${req.body.type === 'LOOSE' ? 'red' : 'green'}"">Fedback: ${req.body.message}</div><br>\n`;
-    fs.appendFile(logFile, htmlFeedback)
+  const htmlFeedback = `<div style="color: ${req.body.type === 'LOOSE' ? 'red' : 'green'}">Fedback: ${req.body.message}</div><br>\n`;
+  fs.appendFile(logFile, htmlFeedback)
 })
 
 app.listen(3000, function() {

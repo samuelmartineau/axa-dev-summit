@@ -36,7 +36,7 @@ function familyComposition( travellerAges ){
           acc.youngAdult ++;
         }
         return acc
-    }, {"kids": 0, "adults": 0, "youngAdult": 0}); 
+    }, {"kids": 0, "adults": 0, "youngAdult": 0});
 }
 
 function isTravellingAlone( family ){
@@ -53,11 +53,11 @@ function hasFiveYoungAdults( family ){
 
 function discountFamilyComposition( family ){
   var discount = 1;
-  
+
   if( isTravellingAlone( family ) ) {
     discount *= 1.05;
   }
-  
+
   if( hasManyYoungAdults( family ) ) {
     discount *= 0.9;
   }
@@ -68,7 +68,7 @@ function discountFamilyComposition( family ){
     //well balanced family
     if( family.kids >= 2 ){
       discount *= 0.80;
-    }    
+    }
   }
   return discount;
 }
@@ -103,43 +103,7 @@ module.exports = (form) => {
     daysNumber = getNumberOfDays( daysNumber );
     const countryFee = countries[country.toUpperCase()];
 
-    if (travellerAges.length > 3) { 
-      throw 'fix'
-    }
-
-    if (!countryFee) {
-      throw 'issue';
-    }
-
-    const optionsAmount = options ? options.reduce((acc, option) => {
-        if (optionsRef[option.toUpperCase()]) {
-          acc += optionsRef[option.toUpperCase()]
-        } else {
-          throw 'option issue';
-        }
-        return acc;
-    }, 0) : 0;
-
-    const ageFees = travellerAges.reduce((acc, age) => {
-        if (isNaN(age)) {
-          throw 'issue';
-        }
-        if (age < 1) {
-
-        } else if (age < 18) {
-            acc += 1.1
-        } else if (age < 25) {
-            acc += 0.9
-        } else if (age < 66) {
-            acc += 1
-        } else {
-            acc += 1.5
-        }
-        return acc
-    }, 0);
-    const family = familyComposition( travellerAges );
-
-    quoteWithoutDiscount = Math.round((quotes[cover.toUpperCase()] * countryFee  * ageFees * daysNumber + optionsAmount) * 100) / 100;
+    quoteWithoutDiscount = Math.round((quotes[cover.toUpperCase()] * countryFee  * ageFees * daysNumber) * 100) / 100;
     quote = quoteWithoutDiscount * discountFamilyComposition( family );
     return quoteWithoutDiscount;
 }
