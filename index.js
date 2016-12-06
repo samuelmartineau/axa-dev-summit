@@ -17,15 +17,21 @@ app.get('/logs', function(req, res) {
 })
 
 app.post('/quote', (req, res) => {
-    const result = quoteCalculator(req.body);
-    fs.appendFile(logFile, `${JSON.stringify(req.body, null, 5)} result: ${result} <br>\n`)
+  let result;
+    try {
+        result = quoteCalculator(req.body)
+    } catch (e) {
+      return res.sendStatus(400)
+    }
+
+    fs.appendFile(logFile, `Quote: ${JSON.stringify(req.body, null, 5)} result: ${result} <br>\n`)
     res.send({
         quote: result
     });
 });
 
 app.post('/feedback', (req, res) => {
-  fs.appendFile(logFile, `${req.body}<br>\n`)
+    fs.appendFile(logFile, `Fedback: ${JSON.stringify(req.body, null, 5)}<br>\n`)
 })
 
 app.listen(3000, function() {
