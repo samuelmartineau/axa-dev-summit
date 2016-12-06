@@ -23,18 +23,19 @@ app.post('/quote', (req, res) => {
     try {
         result = quoteCalculator(req.body)
     } catch (e) {
-        return res.sendStatus(400)
+        console.log(e)
+        fs.appendFile(logFile, `<div style="color: blue">Quote: ${JSON.stringify(req.body, null, 5)} result: ${result} </div><br>\n`)
+        return res.sendStatus(204);
     }
 
-    fs.appendFile(logFile, `Quote: ${JSON.stringify(req.body, null, 5)} result: ${result} <br>\n`)
     res.send({
         quote: result
     });
 });
 
 app.post('/feedback', (req, res) => {
-  const htmlFeedback = `<div style="color: ${req.body.type === 'LOOSE' ? 'red' : 'green'}">Fedback: ${req.body.message}</div><br>\n`;
-  fs.appendFile(logFile, htmlFeedback)
+    const htmlFeedback = `<div style="color: ${req.body.type === 'LOOSE' ? 'red' : 'green'}">Fedback: ${req.body.message}</div><br><br>\n`;
+    fs.appendFile(logFile, htmlFeedback)
 })
 
 app.listen(3000, function() {
