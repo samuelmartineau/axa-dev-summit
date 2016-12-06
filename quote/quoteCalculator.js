@@ -59,5 +59,5 @@ module.exports = (form) => {
         return acc
     }, 0);
 
-    return (Math.round((quotes[cover.toUpperCase()] * countryFee  * ageFees * daysNumber + optionsAmount) * 100) / 100).toFixed(2);
+    return Math.round((quotes[cover.toUpperCase()] * countryFee  * ageFees * daysNumber + optionsAmount) * 100) / 100;
 }
