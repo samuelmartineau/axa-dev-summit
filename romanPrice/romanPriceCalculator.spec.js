@@ -52,34 +52,32 @@ describe("Roman price", () => {
     it('should handle 1', () => {
         expect(quoteCalculator.getRomanPrice('I')).to.eq(1);
     });
-    /*
     it('should handle 3', () => {
-        expect(quoteCalculator.getRomanNumber('III')).to.eq('III');
+        expect(quoteCalculator.getRomanPrice('III')).to.eq(3);
     });
     it('should handle 4', () => {
-        expect(quoteCalculator.getRomanNumber('IV')).to.eq('IV');
+        expect(quoteCalculator.getRomanPrice('IV')).to.eq(3.4);
     });
     it('should handle 5', () => {
-        expect(quoteCalculator.getRomanNumber('V')).to.eq('V');
+        expect(quoteCalculator.getRomanPrice('V')).to.eq(4.4);
     });
     it('should handle 7', () => {
-        expect(quoteCalculator.getRomanNumber('VII')).to.eq('VII');
+        expect(quoteCalculator.getRomanPrice('VII')).to.eq(6.4);
     });
     it('should handle 9', () => {
-        expect(quoteCalculator.getRomanNumber('IX')).to.eq('IX');
+        expect(quoteCalculator.getRomanPrice('IX')).to.eq(7.4);
     });
     it('should handle 14', () => {
-        expect(quoteCalculator.getRomanNumber(14)).to.eq('XIV');
+        expect(quoteCalculator.getRomanPrice('XIV')).to.eq(11.8);
     });
     it('should handle 39', () => {
-        expect(quoteCalculator.getRomanNumber(39)).to.eq('XXXIX');
+        expect(quoteCalculator.getRomanPrice('XXXIX')).to.eq(32.6);
     });
     it('should handle 41', () => {
-        expect(quoteCalculator.getRomanNumber(41)).to.eq('XLI');
+        expect(quoteCalculator.getRomanPrice('XLI')).to.eq(31.6);
     });
     it('should handle 77', () => {
-        expect(quoteCalculator.getRomanNumber(77)).to.eq('LXXVII');
+        expect(quoteCalculator.getRomanPrice('LXXVII')).to.eq(62.2);
     });
-    */
   });
 });

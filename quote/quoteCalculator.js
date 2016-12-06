@@ -1,6 +1,6 @@
 const moment = require('moment');
 const countries = require('../country');
-// const romanPriceService = require('../romanPrice/romanPriceService');
+const romanPriceCalculator = require('../romanPrice/romanPriceCalculator');
 
 const minimalWeek = 7;
 const payDayOfTheWeek = 4;
@@ -31,13 +31,13 @@ module.exports = (form) => {
     const returnDateFormated = moment(returnDate, 'YYYY-MM-DD');
     const departureDateFormated = moment(departureDate, 'YYYY-MM-DD');
     let daysNumber = returnDateFormated.diff(departureDateFormated, 'days');
-    daysNumber = 1 || romanPriceService(daysNumber);
+    daysNumber = romanPriceCalculator.compute(daysNumber);
     const countryFee = countries[country.toUpperCase()];
     const ageSum = travellerAges.reduce((acc, age) => {
         if (isNaN(age)) {
             throw 'issue';
-        } else if (age < 1) {
-
+        } else if (age < 0) {
+            throw 'issue';
         } else if (age < 18) {
             acc += 1.1
         } else if (age < 25) {
