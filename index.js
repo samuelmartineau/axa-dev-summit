@@ -3,6 +3,8 @@ const app = express()
 const bodyParser = require('body-parser')
 const quoteCalculator = require('./quote/quoteCalculator')
 const fs = require('fs')
+const ts = require('tail-stream')
+const path = require('path')
 
 const logFile = 'log-me-i-am-famous.log'
 
@@ -13,25 +15,29 @@ app.use(bodyParser.json())
 
 app.get('/logs', function(req, res) {
     res.setHeader('content-type', 'text/html');
-    fs.createReadStream('./log-me-i-am-famous.log').pipe(res);
+    ts.createReadStream(path.join(__dirname, logFile)).pipe(res);
 })
 
 app.post('/quote', (req, res) => {
-  let result;
+    return res.sendStatus(204);
+    let result;
+    fs.appendFile(logFile, `<div style="color: blue">Quote: ${JSON.stringify(req.body, null, 5)} </div><br>\n`)
+
     try {
         result = quoteCalculator(req.body)
     } catch (e) {
-      return res.sendStatus(400)
+        console.log(e)
+        return res.sendStatus(204);
     }
 
-    fs.appendFile(logFile, `Quote: ${JSON.stringify(req.body, null, 5)} result: ${result} <br>\n`)
     res.send({
         quote: result
     });
 });
 
 app.post('/feedback', (req, res) => {
-    fs.appendFile(logFile, `Fedback: ${JSON.stringify(req.body, null, 5)}<br>\n`)
+    const htmlFeedback = `<div style="color: ${req.body.type === 'LOOSE' ? 'red' : 'green'}">Fedback: ${req.body.message}</div><br><br>\n`;
+    fs.appendFile(logFile, htmlFeedback)
 })
 
 app.listen(3000, function() {
