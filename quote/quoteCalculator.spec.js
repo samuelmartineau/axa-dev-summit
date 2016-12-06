@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const quoteCalculator = require('../quote/quoteCalculator');
 
+/*
 describe("Serious Game", () => {
     xit('first test', () => {
         const data = {
@@ -24,7 +25,7 @@ describe("Serious Game", () => {
         };
         expect(quoteCalculator(secondTest)).to.eq(52.80);
     });
-    it('without options test', () => {
+    xit('without options test', () => {
         const thirdTest = {
             country: 'NL',
             departureDate: '2017-02-26',
@@ -35,7 +36,7 @@ describe("Serious Game", () => {
         };
         expect(quoteCalculator(thirdTest)).to.eq(113.39999999999999);
     });
-    it('with options test', () => {
+    xit('with options test', () => {
         const fourTest = {
             country: 'FR',
             departureDate: '2017-03-08',
@@ -46,7 +47,7 @@ describe("Serious Game", () => {
         };
         expect(quoteCalculator(fourTest)).to.eq(152.68);
     });
-    it('with options test 2', () => {
+    xit('with options test 2', () => {
         const fourTest = {
             country: 'ES',
             departureDate: '2016-12-24',
@@ -58,3 +59,4 @@ describe("Serious Game", () => {
         expect(quoteCalculator(fourTest)).to.eq(217.42);
     });
 });
+*/
