@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const quoteCalculator = require('./quote/quoteCalculator')
+const getOffers = require('./offer/offerCalculator')
 const fs = require('fs')
 const ts = require('tail-stream')
 const path = require('path')
@@ -24,14 +25,14 @@ app.post('/quote', (req, res) => {
     fs.appendFile(logFile, `<div style="color: blue">Quote: ${JSON.stringify(req.body, null, 5)} </div><br>\n`)
 
     try {
-        result = quoteCalculator(req.body)
+        result = getOffers(req.body);
     } catch (e) {
         console.log(e)
         return res.sendStatus(400);
     }
 
     res.send({
-        quote: result
+        offers: result
     });
 });
 
