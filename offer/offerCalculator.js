@@ -1,6 +1,6 @@
 
 
 module.exports = (form) => {
-    var offers = [];
+    var offers = ["insurance"];
     return offers;
 }
