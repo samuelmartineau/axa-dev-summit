@@ -19,7 +19,7 @@ app.get('/logs', function(req, res) {
 })
 
 app.post('/quote', (req, res) => {
-    // return res.sendStatus(204);
+    return res.sendStatus(204);
     let result;
     fs.appendFile(logFile, `<div style="color: blue">Quote: ${JSON.stringify(req.body, null, 5)} </div><br>\n`)
 
