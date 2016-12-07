@@ -47,6 +47,9 @@ describe("Roman price", () => {
     it('should handle 77', () => {
         expect(quoteCalculator.getRomanNumber(77)).to.eq('LXXVII');
     });
+    it('should handle 231', () => {
+        expect(quoteCalculator.getRomanNumber(26)).to.eq('XXVI');
+    });
   });
   describe("#getRomanPrice()", () => {
     it('should handle 1', () => {
@@ -78,6 +81,9 @@ describe("Roman price", () => {
     });
     it('should handle 77', () => {
         expect(quoteCalculator.getRomanPrice('LXXVII')).to.eq(62.2);
+    });
+    it.only('should handle 26', () => {
+        expect(quoteCalculator.getRomanNumber('XXVI')).to.eq(22);
     });
   });
 });
