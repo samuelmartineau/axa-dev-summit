@@ -31,7 +31,7 @@ app.post('/quote', (req, res) => {
     }
     // return res.sendStatus(204);
     res.send({
-        offers: ['insurance', 'car rental']
+        offers: ['insurance', 'car rental', 'nanny']
     });
 });
 
